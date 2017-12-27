@@ -22,7 +22,7 @@ int main()
 {
 	clock_t start, finish;
 	Tree<int, myless<int>>* t = new Tree<int, myless<int>>;
-	int N = 10000000;
+	int N = 16;
 
 	default_random_engine re;
 	uniform_int_distribution<int> distr;
@@ -31,7 +31,8 @@ int main()
 
 	for (int i = 0; i < N; ++i)
 	{
-		t->OST_insert(new Node<int>(distr(re), t->getNil(), t->getNil(), t->getNil()));
+		t->OST_insert(new Node<int>(i, t->getNil(), t->getNil(), t->getNil()));
+		//t->OST_insert(new Node<int>(distr(re), t->getNil(), t->getNil(), t->getNil()));
 	}
 
 	finish = clock();
@@ -39,6 +40,6 @@ int main()
 	cout << "Time: " << double(finish - start) / CLOCKS_PER_SEC << endl;
 	cout << "Height: " << t->height(t->getRoot()) << endl<<endl;
 
-	//pretty_print_tree(t->root, t->nil);
+	pretty_print_tree(t->getRoot(), t->getNil());
 
 }
