@@ -3,11 +3,12 @@
 
 #pragma once
 
+//Structure for the node of the tree
 template<typename T>
 struct Node
 {
 	T key;
-	Node *left, *right, *next;;
+	Node *left, *right, *next; // next field holds node with the next value (bigger or smaller depend on the order)
 	int N;
 
 	Node() { 
