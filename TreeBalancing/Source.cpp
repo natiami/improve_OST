@@ -42,4 +42,8 @@ int main()
 
 	pretty_print_tree(t->getRoot(), t->getNil());
 
+	t->OST_delete(3);
+
+	pretty_print_tree(t->getRoot(), t->getNil());
+
 }

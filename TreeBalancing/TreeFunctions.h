@@ -144,53 +144,6 @@ Node<T>* Tree<T, Compare>::search(T k)
 }
 
 template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::partR(Node<T>* h, int k)
-{
-	int t = h->left->N;
-	if (t > k) {
-		h->left = partR(h->left, k);
-		h = rotateRight(h);
-	}
-	if (t < k) {
-		h->right = partR(h->right, k - t - 1);
-		h = rotateLeft(h);
-	}
-	return h;
-}
-
-template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::balanceR(Node<T>* h)
-{
-	if (h->N < 2) return h;
-	h = partR(h, h->N / 2);
-	h->left = balanceR(h->left);
-	h->right = balanceR(h->right);
-	return h;
-}
-
-template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::rotateLeft(Node<T>* x)
-{
-	Node<T>* y = x->right;
-	x->right = y->left;
-	y->left = x;
-	x->N = x->left->N + x->right->N + 1;
-	y->N = y->left->N + y->right->N + 1;
-	return y;
-}
-
-template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::rotateRight(Node<T>* x)
-{
-	Node<T>* y = x->left;
-	x->left = y->right;
-	y->right = x;
-	x->N = x->left->N + x->right->N + 1;
-	y->N = y->left->N + y->right->N + 1;
-	return y;
-}
-
-template<typename T, typename Compare = less<T>>
 int Tree<T, Compare>::height(Node<T>* h) {
 	if (nil == h) return -1;
 	int u = height(h->left);

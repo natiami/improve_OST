@@ -20,11 +20,6 @@ class Tree
 	void deleteR(Node<T>* h, Node<T>* z, Node<T>* prev);
 	void deleteNode(Node<T>* h, Node<T>* z, bool left, Node<T>* prev);
 	void transplant(Node<T>* h, Node<T>* z, Node<T>* v, bool left);
-	
-	Node<T>* balanceR(Node<T>* h);
-	Node<T>* rotateLeft(Node<T>* x);
-	Node<T>* rotateRight(Node<T>* x);
-	Node<T>* partR(Node<T>* h, int k);
 
 	Node<T>* qBalance(Node<T>*& node);
 	Node<T>* qBalance(Node<T>*& node, int m);
