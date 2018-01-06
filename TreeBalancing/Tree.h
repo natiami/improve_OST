@@ -9,7 +9,7 @@ class Tree
 {
 	Node<T>* root;
 	Node<T>* nil;
-	int chunkPerTread = 100000; //Number of nodes to be balanced in each thread
+	int chunkPerTread = 1000; //Number of nodes to be balanced in each thread, =100000 default
 	int maxThreadNumber;
 	Compare compare; //Comparison funtion for the tree
 
@@ -46,7 +46,6 @@ public:
 	void OSTinsert(Node<T>* z); // Node insertion function
 	void OSTdelete(T k); // Node deletion function
 	int getHeight(Node<T>* h); 
-
 };
 
 #endif

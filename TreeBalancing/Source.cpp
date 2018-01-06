@@ -31,7 +31,7 @@ int main()
 
 	for (int i = 0; i < N; ++i)
 	{
-		t->OSTinsert(new Node<int>(i, t->getNil(), t->getNil(), t->getNil()));
+		t->OSTinsert(new Node<int>(i+1, t->getNil(), t->getNil(), t->getNil()));
 		//t->OST_insert(new Node<int>(distr(re), t->getNil(), t->getNil(), t->getNil()));
 	}
 
@@ -42,8 +42,7 @@ int main()
 
 	pretty_print_tree(t->getRoot(), t->getNil());
 
-	t->OSTdelete(3);
-	cout << endl;
-	pretty_print_tree(t->getRoot(), t->getNil());
+	//t->OSTdelete(3);
+	//pretty_print_tree(t->getRoot(), t->getNil());
 
 }
