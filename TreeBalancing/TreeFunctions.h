@@ -250,6 +250,7 @@ void Tree<T, Compare>::deleteNode(Node<T>* h, Node<T>* z, bool left, Node<T>* pr
 		y->left = z->left;
 		y->N += y->left->N; //Fix the size field
 		transplant(h, y, left); //The final transplant and replace z with y in the tree
+		cout << endl << "Node " << z->key << " is safely deleted" << endl;
 	}
 }
 

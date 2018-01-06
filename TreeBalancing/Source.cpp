@@ -22,7 +22,7 @@ int main()
 {
 	clock_t start, finish;
 	Tree<int, myless<int>>* t = new Tree<int, myless<int>>;
-	int N = 16;
+	int N = 10;
 
 	default_random_engine re;
 	uniform_int_distribution<int> distr;
@@ -42,7 +42,8 @@ int main()
 
 	pretty_print_tree(t->getRoot(), t->getNil());
 
-	//t->OSTdelete(3);
-	//pretty_print_tree(t->getRoot(), t->getNil());
+	t->OSTdelete(3);
+
+	pretty_print_tree(t->getRoot(), t->getNil());
 
 }
