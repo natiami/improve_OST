@@ -136,6 +136,13 @@ Node<T>* Tree<T, Compare>::insertR(Node<T>* h, Node<T>* z, Node<T>* prev, bool &
 }
 
 template<typename T, typename Compare = less<T>>
+Node<T>* Tree<T, Compare>::qBalance(Node<T>*& node)
+{
+	Node<T>* leftNode = getLeftNode(node);
+	return qBalance(leftNode, node->N);
+}
+
+template<typename T, typename Compare = less<T>>
 Node<T>* Tree<T, Compare>::qBalance(Node<T>*& node, int m)
 {
 	if (m < 1)  return nil;
@@ -171,37 +178,32 @@ Node<T>* Tree<T, Compare>::qBalance(Node<T>*& node, int m)
 }
 
 template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::qBalance(Node<T>*& node)
-{
-	Node<T>* minNode = getMinNode(node);
-	return qBalance(minNode, node->N);
-}
-
-template<typename T, typename Compare = less<T>>
 void Tree<T, Compare>::OSTdelete(T k) {
 	Node<T>* z = search(k);
 	if (z == nil)
 		cout << "This node doesn't exists" << endl;
 	else if (z == root) 
+		// If z is root then we delete it 
 		deleteNode(nil, z, true, nil);
-	else deleteR(root, z, nil);
+	else deleteR(root, z, nil); //Otherwise we find previous node and parent of z and then delete it
 }
 
 template<typename T, typename Compare = less<T>>
 void Tree<T, Compare>::deleteR(Node<T>* h, Node<T>* z, Node<T>* prev) {
+	h->N--; 
 	if (compare(z->key, h->key))
 	{
-		h->N--;
 		if (h->left == z) {
+			// If we found z we pass deleteNode funtion its parent h and previous node
 			deleteNode(h, z, true, prev);
 		}
 		else {
+			// else keep search
 			deleteR(h->left, z, prev);
 		}
 	}
 	else
 	{
-		h->N--;
 		prev = h;
 		if (h->right == z) {
 			deleteNode(h, z, false, prev);
@@ -212,18 +214,20 @@ void Tree<T, Compare>::deleteR(Node<T>* h, Node<T>* z, Node<T>* prev) {
 	}
 }
 
+// This funtion deletes node from the tree
 template<typename T, typename Compare = less<T>>
 void Tree<T, Compare>::deleteNode(Node<T>* h, Node<T>* z, bool left, Node<T>* prev) {
 
 	//correction of the next value
 	if (z->left != nil) {
-		prev = getMaxNode(z->left);
+		prev = getRightNode(z->left);
 		prev->next = z->next;
 	}
 	else if ( prev != nil) {
 		prev->next = z->next;
 	}
 
+	//If one of the child is nill transplant second one parents place
 	if (z->left == nil)
 		transplant(h, z->right, left);
 	else if (z->right == nil)
@@ -233,33 +237,33 @@ void Tree<T, Compare>::deleteNode(Node<T>* h, Node<T>* z, bool left, Node<T>* pr
 		Node<T>* p = nil;
 
 		while (y->left != nil) {
-			y->N--;
-			p = y;
+			y->N--; //Decrease sizes on the path to the node that replace z node
+			p = y; 
 			y = y->left;
 		}
-		//if y is not a child of z
+		//If y is not a child of z
 		if (p != nil) {
-			transplant(p, y->right, true);
+			transplant(p, y->right, true); //Make right subtree of y right subtree of its parent
 			y->right = z->right;
-			y->N = y->right->N + 1;
+			y->N = y->right->N + 1; //Fix the size field
 		}
 		y->left = z->left;
-		y->N += y->left->N;
-		transplant(h, y, left);
-		//transplant was first in case of errors keep in mind
+		y->N += y->left->N; //Fix the size field
+		transplant(h, y, left); //The final transplant and replace z with y in the tree
 	}
 }
 
 template<typename T, typename Compare = less<T>>
 void Tree<T, Compare>::transplant(Node<T>* p, Node<T>* v, bool left) {
 	if (p == nil) root = v;
-	else if (left) {
-		p->left = v;
-		p->N = p->left->N + p->right->N + 1;
-	}
-	else {
-		p->right = v;
-		p->N = p->left->N + p->right->N + 1;
+	else{
+		if (left) {
+			p->left = v;
+		}
+		else {
+			p->right = v;
+		}
+		p->N = p->left->N + p->right->N + 1; //Fix the size field
 	}
 }
 
@@ -280,6 +284,7 @@ Node<T>* Tree<T, Compare>::search(T k)
 template<typename T, typename Compare = less<T>>
 Node<T>* Tree<T, Compare>::select(Node<T>* x, int rank)
 {
+	//This funtion finds node with indicated rank in the tree
 	int r;
 	if (x->left == nil) {
 		r = 1;
@@ -299,6 +304,7 @@ Node<T>* Tree<T, Compare>::select(Node<T>* x, int rank)
 
 template<typename T, typename Compare = less<T>>
 int Tree<T, Compare>::getHeight(Node<T>* h) {
+	//This funtion finds height of the tree
 	if (nil == h) return -1;
 	int u = getHeight(h->left);
 	int v = getHeight(h->right);
@@ -306,8 +312,9 @@ int Tree<T, Compare>::getHeight(Node<T>* h) {
 }
 
 template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::getMinNode(Node<T>* x)
+Node<T>* Tree<T, Compare>::getLeftNode(Node<T>* x)
 {
+	//This funtion return leftmost node
 	Node<T>* node = x;
 	while (node->left != nil) {
 		node = node->left;
@@ -316,8 +323,9 @@ Node<T>* Tree<T, Compare>::getMinNode(Node<T>* x)
 }
 
 template<typename T, typename Compare = less<T>>
-Node<T>* Tree<T, Compare>::getMaxNode(Node<T>* x)
+Node<T>* Tree<T, Compare>::getRightNode(Node<T>* x)
 {
+	//This funtion return rightmost node
 	Node<T>* node = x;
 	while (node->right != nil) {
 		node = node->right;

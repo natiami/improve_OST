@@ -41,8 +41,8 @@ public:
 	Node<T>* getRoot() { return root; }
 	Node<T>* search(T k); // Function for the node search in the tree
 	Node<T>* select(Node<T>* x, int rank); // Search of the node with its rank
-	Node<T>* getMinNode(Node<T>* x);
-	Node<T>* getMaxNode(Node<T>* x);
+	Node<T>* getLeftNode(Node<T>* x);
+	Node<T>* getRightNode(Node<T>* x);
 	void OSTinsert(Node<T>* z); // Node insertion function
 	void OSTdelete(T k); // Node deletion function
 	int getHeight(Node<T>* h); 

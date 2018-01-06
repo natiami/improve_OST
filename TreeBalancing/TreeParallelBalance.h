@@ -29,7 +29,7 @@ Node<T>* Tree<T, Compare>::qBalanceParallel(Node<T>* node, int num_threads)
 
 	
 	std::thread *threads = new std::thread[num_threads - 1];
-	Node<T>* tmpHead = getMinNode(node);
+	Node<T>* tmpHead = getLeftNode(node);
 	for (int i = 0; i < num_threads - 1; ++i)
 		threads[i] = std::thread(&Tree<T, Compare>::jobPerThread, this, i, Lheads, Uheads, chunk0, chunk, node);
 	for (int i = 0; i < num_threads - 1; ++i)   threads[i].join();
