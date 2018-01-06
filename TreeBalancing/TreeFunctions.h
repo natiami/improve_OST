@@ -281,10 +281,10 @@ Node<T>* Tree<T, Compare>::search(T k)
 	return x;
 }
 
+//This funtion finds node with indicated rank in the tree
 template<typename T, typename Compare = less<T>>
 Node<T>* Tree<T, Compare>::select(Node<T>* x, int rank)
 {
-	//This funtion finds node with indicated rank in the tree
 	int r;
 	if (x->left == nil) {
 		r = 1;
@@ -302,19 +302,21 @@ Node<T>* Tree<T, Compare>::select(Node<T>* x, int rank)
 	return x;
 }
 
+//This funtion finds height of the tree
 template<typename T, typename Compare = less<T>>
 int Tree<T, Compare>::getHeight(Node<T>* h) {
-	//This funtion finds height of the tree
+	
 	if (nil == h) return -1;
 	int u = getHeight(h->left);
 	int v = getHeight(h->right);
 	return (u < v) ? (v + 1) : (u + 1);
 }
 
+//This funtion finds leftmost node
 template<typename T, typename Compare = less<T>>
 Node<T>* Tree<T, Compare>::getLeftNode(Node<T>* x)
 {
-	//This funtion return leftmost node
+	
 	Node<T>* node = x;
 	while (node->left != nil) {
 		node = node->left;
@@ -322,10 +324,11 @@ Node<T>* Tree<T, Compare>::getLeftNode(Node<T>* x)
 	return node;
 }
 
+//This funtion finds rightmost node
 template<typename T, typename Compare = less<T>>
 Node<T>* Tree<T, Compare>::getRightNode(Node<T>* x)
 {
-	//This funtion return rightmost node
+	
 	Node<T>* node = x;
 	while (node->right != nil) {
 		node = node->right;
