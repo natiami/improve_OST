@@ -67,8 +67,8 @@ Pnode * build_ptree_rec(Node<int> * t, Node<int> *end)
 	if (pn->left != NULL) pn->left->parent_dir = -1;
 	if (pn->right != NULL) pn->right->parent_dir = 1;
 
-	sprintf_s(pn->label, "%d %d %d", t->next->key, t->N, t->key);
-	//sprintf_s(pn->label, "%d(%d)", t->key, t->N);
+	//sprintf_s(pn->label, "%d %d %d", t->next->key, t->N, t->key);
+	sprintf_s(pn->label, "(%d)", t->key, t->N);
 
 	pn->lablen = strlen(pn->label);
 	return pn;

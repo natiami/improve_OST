@@ -20,9 +20,12 @@ template <class T> struct myless : binary_function <T, T, bool> {
 
 int main()
 {
+	system("color F4");
 	clock_t start, finish;
 	Tree<int, myless<int>>* t = new Tree<int, myless<int>>;
-	int N = 10;
+	int N = 0;
+	cout << "Enter the number of Nodes \t";
+	cin >> N;
 
 	default_random_engine re;
 	uniform_int_distribution<int> distr;
@@ -41,8 +44,11 @@ int main()
 	cout << "Height: " << t->getHeight(t->getRoot()) << endl<<endl;
 
 	pretty_print_tree(t->getRoot(), t->getNil());
-
-	t->OSTdelete(3);
+	int k = 0;
+	cout << "Enter a node value to be deleted \t";
+	cin>>k;
+	t -> OSTdelete(k);
+	
 
 	pretty_print_tree(t->getRoot(), t->getNil());
 
