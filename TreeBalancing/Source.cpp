@@ -35,7 +35,7 @@ int main()
 	for (int i = 0; i < N; ++i)
 	{
 		t->OSTinsert(new Node<int>(i+1, t->getNil(), t->getNil(), t->getNil()));
-		//t->OST_insert(new Node<int>(distr(re), t->getNil(), t->getNil(), t->getNil()));
+		//t->OSTinsert(new Node<int>(distr(re), t->getNil(), t->getNil(), t->getNil()));
 	}
 
 	finish = clock();
@@ -44,12 +44,18 @@ int main()
 	cout << "Height: " << t->getHeight(t->getRoot()) << endl<<endl;
 
 	pretty_print_tree(t->getRoot(), t->getNil());
-	int k = 0;
-	cout << "Enter a node value to be deleted \t";
-	cin>>k;
-	t -> OSTdelete(k);
-	
-
-	pretty_print_tree(t->getRoot(), t->getNil());
-
+	int k=0;
+	int value = 0;
+	while (k <= N){
+		cout << "Enter a node to delete from tree, 0 to quit \t";
+		cin >> value;
+		if (value == 0)
+			break;
+		else {
+			
+			t->OSTdelete(value);
+			pretty_print_tree(t->getRoot(), t->getNil());
+		}
+		//return 0;
+	}
 }

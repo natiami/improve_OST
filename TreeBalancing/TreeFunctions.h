@@ -181,7 +181,7 @@ template<typename T, typename Compare = less<T>>
 void Tree<T, Compare>::OSTdelete(T k) {
 	Node<T>* z = search(k);
 	if (z == nil)
-		cout << "This node doesn't exists" << endl;
+		cout << "This node doesn't exist" << endl;
 	else if (z == root) 
 		// If z is root then we delete it 
 		deleteNode(nil, z, true, nil);
@@ -250,8 +250,10 @@ void Tree<T, Compare>::deleteNode(Node<T>* h, Node<T>* z, bool left, Node<T>* pr
 		y->left = z->left;
 		y->N += y->left->N; //Fix the size field
 		transplant(h, y, left); //The final transplant and replace z with y in the tree
-		cout << endl << "Node " << z->key << " is safely deleted" << endl;
+		//cout << endl << "Node " << z->key << " is safely deleted" << endl;
 	}
+	cout << endl << "Node " << z->key << " is safely deleted" << endl;
+	cout << "The tree is now"<<endl;
 }
 
 template<typename T, typename Compare = less<T>>
